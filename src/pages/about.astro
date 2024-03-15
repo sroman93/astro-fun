@@ -1,5 +1,26 @@
 ---
+import '../styles/global.css';
+import '../components/Navigation.astro';
+import Footer from "../components/Footer.astro"
+import Header from "../components/Header.astro";
 
+const pageTitle = "About Me"
+
+const identity = {
+    firstName: "Sam",
+    country: "USA",
+    occupation: "Developer",
+    hobbies: ["programming", "gaming"]
+}
+
+const skills = ["Kotlin", "Sql"]
+
+const showElement = true
+const dontShowElement = false
+
+const skillColor = "navy"
+const fontWeight = "bold"
+const textCase = "uppercase"
 ---
 
 <html lang="en">
@@ -9,18 +30,43 @@
     <meta name="viewport" content="width=device-width"/>
     <meta name="generator" content={Astro.generator}/>
     <title>Astro</title>
+    <style define:vars={{skillColor, fontWeight, textCase}}>
+        h1 {
+            color: purple;
+            font-size: 4rem;
+        }
+        .skill {
+            color: var(--skillColor);
+            font-weight: var(--fontWeight);
+            text-transform: var(--textCase);
+        }
+    </style>
 </head>
 <body>
 
-<a href="/">Home</a>
-<a href="/about">About</a>
-<a href="/blog">My Blog</a>
-<h1>About Me</h1>
-<h2>... and my new Astro site!</h2>
+<Header></Header>
 
-<p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I
-    built myself!</p>
+<li>My name is {identity.firstName}</li>
+<li>I live in the {identity.country}</li>
+<li>I am a {identity.occupation}</li>
+<br>
+<li>My hobbies are:</li>
+<ul>
+    {identity.hobbies.map((hobby) =>
+            <li>{hobby}</li>
+    )}
+</ul>
 
-<p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
+<p>My skills are:</p>
+<ul>
+    {skills.map((skill) =>
+            <li class="skill">{skill}</li>
+    )}
+</ul>
+
+{showElement && <p>Element should show</p>}
+{dontShowElement && <p>Element shouldn't show</p>}
+
+<Footer></Footer>
 </body>
 </html>
